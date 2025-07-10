@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup/Login</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #4f2cc9 0%, #6a82fb 50%, #fc5c7d 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .college-hero {
+            width: 340px;
+            max-width: 90vw;
+            margin-bottom: -32px;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+        }
+        .student {
+            transform-origin: bottom center;
+            animation: studentWave 2.5s infinite ease-in-out;
+        }
+        .student2 {
+            animation-delay: 1.2s;
+        }
+        @keyframes studentWave {
+            0%, 100% { transform: translateY(0) scale(1); }
+            20% { transform: translateY(-8px) scale(1.04); }
+            40% { transform: translateY(0) scale(1); }
+            60% { transform: translateY(-6px) scale(1.03); }
+            80% { transform: translateY(0) scale(1); }
+        }
+        .container {
+            max-width: 400px;
+            width: 100%;
+            background: #fff;
+            padding: 36px 28px 28px 28px;
+            border-radius: 14px;
+            box-shadow: 0 8px 32px rgba(79,44,201,0.13), 0 1.5px 8px rgba(0,0,0,0.10);
+            margin: 40px 0;
+        }
+        h2 {
+            text-align: left;
+            color: #2d217c;
+            font-size: 1.3em;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-weight: bold;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+        .info-box {
+            background: #f5f5f5;
+            color: #333;
+            border-left: 4px solid #4f2cc9;
+            padding: 12px 18px;
+            margin-bottom: 22px;
+            border-radius: 6px;
+            font-size: 0.98em;
+        }
+        .error-message {
+            color: #fc5c7d;
+            font-size: 0.98em;
+            margin-bottom: 8px;
+            margin-top: -8px;
+            min-height: 18px;
+        }
+        .success-message {
+            color: #2ecc71;
+            font-size: 0.98em;
+            margin-bottom: 8px;
+            margin-top: -8px;
+            min-height: 18px;
+        }
+        .strength-meter {
+            height: 10px;
+            width: 100%;
+            background: linear-gradient(90deg, #fc5c7d 0%, #fdbc40 50%, #2ecc71 100%);
+            border-radius: 6px;
+            margin-bottom: 6px;
+            position: relative;
+        }
+        .strength-marker {
+            position: absolute;
+            top: -4px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            background: #fc5c7d;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            transition: left 0.2s, background 0.2s;
+        }
+        .strength-text {
+            font-size: 0.95em;
+            margin-bottom: 8px;
+            color: #888;
+            min-height: 18px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+        label {
+            margin-bottom: 6px;
+            color: #2d217c;
+            font-weight: 600;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        input[type="text"], input[type="password"] {
+            padding: 10px;
+            margin-bottom: 14px;
+            border: 1.5px solid #bbb;
+            border-radius: 4px;
+            font-size: 1em;
+            background: #fafaff;
+            transition: border 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+        input[type="text"]:focus, input[type="password"]:focus {
+            border: 1.5px solid #4f2cc9;
+            box-shadow: 0 0 0 2px #e5e5e5;
+        }
+        button {
+            padding: 12px;
+            background: linear-gradient(90deg, #4f2cc9 60%, #6a82fb 100%);
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-weight: 600;
+            margin-top: 4px;
+            box-shadow: 0 2px 8px rgba(79,44,201,0.10);
+            transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+        }
+        button:hover {
+            background: linear-gradient(90deg, #6a82fb 0%, #4f2cc9 100%);
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 4px 16px rgba(79,44,201,0.18);
+        }
+        button:active {
+            background: #4f2cc9;
+            transform: scale(0.98);
+        }
+        .divider {
+            text-align: center;
+            margin: 16px 0;
+            color: #888;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+        @media (max-width: 500px) {
+            .container { padding: 18px 4vw 14px 4vw; }
+            .info-box { font-size: 0.97em; }
+            .college-hero { width: 98vw; }
+        }
+    </style>
+</head>
+<body>
+    <div class="college-hero">
+        <svg viewBox="0 0 340 140" width="340" height="140" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- College Building -->
+            <rect x="80" y="60" width="180" height="50" rx="8" fill="#fff" stroke="#4f2cc9" stroke-width="3"/>
+            <rect x="120" y="40" width="100" height="30" rx="6" fill="#6a82fb" stroke="#4f2cc9" stroke-width="2"/>
+            <rect x="155" y="25" width="30" height="20" rx="4" fill="#fff" stroke="#4f2cc9" stroke-width="2"/>
+            <rect x="160" y="30" width="20" height="10" rx="2" fill="#4f2cc9"/>
+            <!-- Windows -->
+            <rect x="135" y="50" width="10" height="10" rx="2" fill="#fff" stroke="#4f2cc9"/>
+            <rect x="195" y="50" width="10" height="10" rx="2" fill="#fff" stroke="#4f2cc9"/>
+            <rect x="135" y="75" width="10" height="10" rx="2" fill="#fff" stroke="#4f2cc9"/>
+            <rect x="195" y="75" width="10" height="10" rx="2" fill="#fff" stroke="#4f2cc9"/>
+            <!-- Door -->
+            <rect x="165" y="85" width="20" height="25" rx="3" fill="#4f2cc9"/>
+            <rect x="172" y="100" width="6" height="10" rx="1" fill="#fff"/>
+            <!-- Students -->
+            <g class="student">
+                <ellipse cx="110" cy="120" rx="10" ry="6" fill="#e0e0e0"/>
+                <circle cx="110" cy="110" r="8" fill="#6a82fb"/>
+                <ellipse cx="110" cy="106" rx="3" ry="2" fill="#fff"/>
+                <rect x="107" y="117" width="6" height="10" rx="2" fill="#4f2cc9"/>
+            </g>
+            <g class="student student2">
+                <ellipse cx="230" cy="120" rx="10" ry="6" fill="#e0e0e0"/>
+                <circle cx="230" cy="110" r="8" fill="#fc5c7d"/>
+                <ellipse cx="230" cy="106" rx="3" ry="2" fill="#fff"/>
+                <rect x="227" y="117" width="6" height="10" rx="2" fill="#4f2cc9"/>
+            </g>
+        </svg>
+    </div>
+    <div class="container">
+        <h2>Signup / Login</h2>
+        <div class="info-box">
+            <strong>Signup Instructions:</strong><br>
+            - Username and password must be at least 6 characters, contain at least 1 capital letter, 1 special character, and 1 number.<br>
+            <br>
+            <strong>Login Instructions:</strong><br>
+            - Both username and password are required.
+        </div>
+        <h2>Signup</h2>
+        <form id="signup-form" method="post" action="/signup" autocomplete="off">
+            <label for="signup-username">Username</label>
+            <input type="text" id="signup-username" name="username" required autocomplete="off">
+            <div id="username-error" class="error-message"></div>
+            <label for="signup-password">Password</label>
+            <input type="password" id="signup-password" name="password" required autocomplete="off">
+            <div class="strength-meter" id="strength-meter">
+                <div class="strength-marker" id="strength-marker" style="left:0;"></div>
+            </div>
+            <div class="strength-text" id="strength-text">Password strength: </div>
+            <div id="password-error" class="error-message"></div>
+            <button type="submit">Sign Up</button>
+        </form>
+        <div class="divider">or</div>
+        <h2>Login</h2>
+        <form method="post" action="/login">
+            <label for="login-username">Username</label>
+            <input type="text" id="login-username" name="username" required>
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" name="password" required>
+            <button type="submit">Log In</button>
+        </form>
+    </div>
+    <script>
+    // Username check (AJAX)
+    document.getElementById('signup-username').addEventListener('blur', function() {
+        const username = this.value.trim();
+        const errorDiv = document.getElementById('username-error');
+        if (username.length < 6) {
+            errorDiv.textContent = 'Username must be at least 6 characters.';
+            return;
+        }
+        fetch(`/check-username?username=${encodeURIComponent(username)}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.taken) {
+                    errorDiv.textContent = 'Username already taken.';
+                } else {
+                    errorDiv.textContent = '';
+                }
+            })
+            .catch(() => {
+                errorDiv.textContent = '';
+            });
+    });
+
+    // Password strength meter
+    const passwordInput = document.getElementById('signup-password');
+    const marker = document.getElementById('strength-marker');
+    const strengthText = document.getElementById('strength-text');
+    const passwordError = document.getElementById('password-error');
+    function getStrength(password) {
+        let score = 0;
+        if (password.length >= 6) score++;
+        if (/[A-Z]/.test(password)) score++;
+        if (/[0-9]/.test(password)) score++;
+        if (/[^A-Za-z0-9]/.test(password)) score++;
+        if (password.length >= 10) score++;
+        return score;
+    }
+    function updateStrengthMeter() {
+        const val = passwordInput.value;
+        const score = getStrength(val);
+        let percent = (score / 5) * 100;
+        let color = '#fc5c7d';
+        let text = 'Weak';
+        if (score === 5) { color = '#2ecc71'; text = 'Strong'; }
+        else if (score >= 3) { color = '#fdbc40'; text = 'Medium'; }
+        marker.style.left = `calc(${percent}% - 9px)`;
+        marker.style.background = color;
+        strengthText.textContent = `Password strength: ${text}`;
+    }
+    passwordInput.addEventListener('input', updateStrengthMeter);
+    updateStrengthMeter();
+
+    // Signup form validation
+    document.getElementById('signup-form').addEventListener('submit', function(e) {
+        let valid = true;
+        const username = document.getElementById('signup-username').value.trim();
+        const password = passwordInput.value;
+        const usernameError = document.getElementById('username-error');
+        const passwordError = document.getElementById('password-error');
+        usernameError.textContent = '';
+        passwordError.textContent = '';
+        // Username rules
+        if (username.length < 6) {
+            usernameError.textContent = 'Username must be at least 6 characters.';
+            valid = false;
+        } else if (!/[A-Z]/.test(username)) {
+            usernameError.textContent = 'Username must contain at least 1 capital letter.';
+            valid = false;
+        } else if (!/[0-9]/.test(username)) {
+            usernameError.textContent = 'Username must contain at least 1 number.';
+            valid = false;
+        } else if (!/[^A-Za-z0-9]/.test(username)) {
+            usernameError.textContent = 'Username must contain at least 1 special character.';
+            valid = false;
+        }
+        // Password rules
+        if (password.length < 6) {
+            passwordError.textContent = 'Password must be at least 6 characters.';
+            valid = false;
+        } else if (!/[A-Z]/.test(password)) {
+            passwordError.textContent = 'Password must contain at least 1 capital letter.';
+            valid = false;
+        } else if (!/[0-9]/.test(password)) {
+            passwordError.textContent = 'Password must contain at least 1 number.';
+            valid = false;
+        } else if (!/[^A-Za-z0-9]/.test(password)) {
+            passwordError.textContent = 'Password must contain at least 1 special character.';
+            valid = false;
+        }
+        if (!valid) e.preventDefault();
+    });
+    </script>
+</body>
+</html> 
